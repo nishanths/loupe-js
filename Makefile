@@ -6,12 +6,11 @@ default:
 	@echo "the default target does nothing!"
 
 .PHONY: dev
-dev:
-# 	$(SASS) --watch --embed-source-map src/style.scss dist/style.css
+dev: clean
 	$(WEBPACK) --mode=development --watch
 
 .PHONY: dist
-dist:
+dist: clean
 	$(SASS) --no-source-map --style=compressed src/style.scss dist/style.css
 	$(WEBPACK) --no-color --mode=production
 

@@ -23,9 +23,8 @@ export const addLoupe = (elem: HTMLElement, imgUrl: string, doc: Document = docu
 }
 
 const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => {
-	Object.assign(target.style, {
-		cursor: "none",
-	})
+	Object.assign(target.style, { cursor: "none" })
+	Object.assign(loupe.style, { display: "block" })
 
 	const targetRect = target.getBoundingClientRect()
 	const targetOffset = { top: targetRect.top + doc.body.scrollTop, left: targetRect.left + doc.body.scrollLeft }
@@ -45,7 +44,7 @@ const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => 
 			(e.pageX > right + loupeRect.width / 12) ||
 			(e.pageY < targetOffset.top - loupeRect.width / 12) ||
 			(e.pageY > bottom + loupeRect.width / 12)) {
-			loupe.style.display = "none"
+			Object.assign(loupe.style, { display: "none" })
 			doc.removeEventListener("mousemove", docMouseMoveHandler)
 			return
 		}
@@ -53,8 +52,8 @@ const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => 
 		const posx = (e.pageX - targetOffset.left) * magnification - loupeRect.width / 2
 		const posy = (e.pageY - targetOffset.top) * magnification - loupeRect.width / 2
 		Object.assign(loupe.style, {
-			left: e.pageX - loupeRect.width / 2,
-			top: e.pageY - loupeRect.width / 2,
+			left: px(e.pageX - loupeRect.width / 2),
+			top: px(e.pageY - loupeRect.width / 2),
 			backgroundPosition: `-${px(posx)} -${px(posy)}`,
 		})
 	}
@@ -62,3 +61,9 @@ const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => 
 }
 
 const px = (v: number): string => v + "px"
+
+const wnd = window as unknown as Window & { loupe: any }
+wnd.loupe = {
+	init,
+	addLoupe,
+}

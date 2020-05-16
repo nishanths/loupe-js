@@ -1,6 +1,9 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
 module.exports = {
   entry: {
     index: "./src/index.ts",
+    style: "./src/style.scss",
   },
   output: {
     filename: "[name].js",
@@ -18,13 +21,19 @@ module.exports = {
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
       {
-        test: /\.s?css$/,
+        test: /\.scss$/,
         use: [
-          "style-loader/url",
-          { loader: "file-loader", options: { name: "[name].css" } },
-          "sass-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
         ],
       },
     ]
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ]
 };
