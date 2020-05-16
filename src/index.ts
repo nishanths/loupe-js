@@ -27,30 +27,31 @@ const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => 
 	Object.assign(loupe.style, { display: "block" })
 
 	const targetRect = target.getBoundingClientRect()
-	const targetOffset = { top: targetRect.top + doc.body.scrollTop, left: targetRect.left + doc.body.scrollLeft }
+	const top = targetRect.top + doc.body.scrollTop
+	const left = targetRect.left + doc.body.scrollLeft
 	const loupeRect = loupe.getBoundingClientRect()
-	const right = targetOffset.left + targetRect.width
-	const bottom = targetOffset.top + targetRect.height
+	const right = left + targetRect.width
+	const bottom = top + targetRect.height
 
 	Object.assign(loupe.style, {
 		backgroundSize: px(targetRect.width * magnification) + " " + px(targetRect.height * magnification),
 		backgroundImage: `url(${imgUrl})`,
-		width: px(250),
-		height: px(250),
+		width: px(magnifierSize),
+		height: px(magnifierSize),
 	})
 
 	const docMouseMoveHandler = (e: MouseEvent): void => {
-		if ((e.pageX < targetOffset.left - loupeRect.width / 12) ||
+		if ((e.pageX < left - loupeRect.width / 12) ||
 			(e.pageX > right + loupeRect.width / 12) ||
-			(e.pageY < targetOffset.top - loupeRect.width / 12) ||
+			(e.pageY < top - loupeRect.width / 12) ||
 			(e.pageY > bottom + loupeRect.width / 12)) {
 			Object.assign(loupe.style, { display: "none" })
 			doc.removeEventListener("mousemove", docMouseMoveHandler)
-			return
+			// return
 		}
 
-		const posx = (e.pageX - targetOffset.left) * magnification - loupeRect.width / 2
-		const posy = (e.pageY - targetOffset.top) * magnification - loupeRect.width / 2
+		const posx = (e.pageX - left) * magnification - loupeRect.width / 2
+		const posy = (e.pageY - top) * magnification - loupeRect.width / 2
 		Object.assign(loupe.style, {
 			left: px(e.pageX - loupeRect.width / 2),
 			top: px(e.pageY - loupeRect.width / 2),
