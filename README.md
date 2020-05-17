@@ -2,6 +2,8 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
+(A loupe is a small magnification device.)
+
 Demo: https://nishanths.github.io/loupe-js/
 
 <a href="https://nishanths.github.io/loupe-js">
@@ -25,9 +27,11 @@ exports in `window.loupe`.
 
 ## Basic example
 
+Import "loupe-js" and the related CSS file.
+
 ```typescript
 import { Loupe, enableLoupe } from "loupe-js"
-import "loupe-js/style.css"
+import "loupe-js/dist/style.css"
 
 const img = document.querySelector("img")!
 
@@ -61,7 +65,10 @@ type LoupeOptions = {
 }
 ```
 
-All propeties are optional. By default the loupe element is placed at the end of `document.body`. If the `shape` is `circle` you should use the same values for `width` and `height`.
+All propeties are optional. By default the loupe element is placed at the end of `document.body`.
+If the `shape` is `circle` you should use the same values for `width` and `height`.
+The `additionalClassName` and `style` properties are useful to add custom styles
+to the loupe element.
 
 The default `LoupeOptions` values are
 
