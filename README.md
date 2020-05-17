@@ -10,9 +10,17 @@ Demo: https://nishanths.github.io/loupe/
 
 ## Install
 
-TODO
+Use npm or yarn
 
-### Basic Example
+```
+npm i --save '@nishanths/loupe'
+```
+
+```
+yarn add '@nishanths/yarn'
+```
+
+## Basic example
 
 ```typescript
 import { Loupe, enableLoupe } from "@nishanths/loupe"
