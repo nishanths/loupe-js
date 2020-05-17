@@ -74,7 +74,7 @@ The default `LoupeOptions` values are
 
 ```typescript
 {
-	magnification: 2,
+	magnification: 2.25,
 	width: 250,
 	height: 250 / 1.6,
 	container: document.body,

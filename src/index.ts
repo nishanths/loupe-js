@@ -3,17 +3,23 @@
 const px = (v: number): string => v + "px"
 
 export type LoupeOptions = {
-	magnification?: number // magnification level
-	width?: number | string // width of the loupe
-	height?: number | string // height of the loupe
-	container?: Node // containing node
-	additionalClassName?: string // additional class name to add to the loupe element
-	style?: Partial<CSSStyleDeclaration> // additional styles to add to the loupe element
-	shape?: Shape // shape of the loupe: "rectangle" | "shape"
+	magnification?: number // magnification level (default: 2.25)
+	width?: number | string // width of the loupe (default: 250)
+	height?: number | string // height of the loupe (default: 250/1.6)
+	container?: Node // containing node (default: document.body)
+	additionalClassName?: string // additional class name to add to the loupe element (default: undefined)
+	style?: Partial<CSSStyleDeclaration> // additional styles to add to the loupe element (default: undefined)
+	shape?: Shape // shape of the loupe: "rectangle" | "circle" (default: "rectangle")
 }
 
+// Shape represents the shape of the loupe.
 export type Shape  = "rectangle" | "circle"
 
+// A Loupe represents the loupe element and its properties such as
+// magnification level and size.
+//
+// Use enableLoupe to add the loupe to an image-displaying element of your
+// choice.
 export class Loupe {
 	readonly magnification: number
 	readonly width: string
@@ -47,6 +53,12 @@ export class Loupe {
 	}
 }
 
+// enableLoupe adds the specified loupe object to the target element. The target
+// element can be, for instance, an <img> element or a <div> element with a
+// background-image.
+//
+// enableLoupe returns a function that can be later be used to disable the loupe
+// on the target element.
 export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) => {
 	const doc = target.ownerDocument
 	const wnd = doc.defaultView
