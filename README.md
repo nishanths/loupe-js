@@ -2,6 +2,10 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
+<a href="https://nishanths.github.io/loupe">
+	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
+</a>
+
 ## Install
 
 TODO
@@ -19,16 +23,21 @@ import { Loupe, enableLoupe } from "@nishanths/loupe"
 
 const img = document.querySelector("img")!
 
-const loupe = new Loupe()
+const loupe = new Loupe({
+	magnification: 2,
+	width: 250,
+	height: 250,
+	style: { boxShadow: "4px 5px 5px 4px rgba(0,0,0,0.5)" },
+	shape: "circle",
+})
 enableLoupe(img, img.src, loupe)
 ```
 
 ### Loupe
 
-The `Loupe` constructor constructs a loupe object. By default the loupe element
-is placed at the end of `document.body`.
+The `Loupe` constructor constructs a loupe object.
 
-Pass in a `LoupeOptions` object to the constructor to customize the loupe. All propeties are optional.
+Pass in a `LoupeOptions` object to the constructor to customize the loupe.
 
 ```typescript
 type LoupeOptions = {
@@ -42,9 +51,9 @@ type LoupeOptions = {
 }
 ```
 
-If the `shape` is `circle` you should use the same values for `width` and `height`.
+All propeties are optional. By default the loupe element is placed at the end of `document.body`. If the `shape` is `circle` you should use the same values for `width` and `height`.
 
-The default values are
+The default `LoupeOptions` values are
 
 ```typescript
 {
