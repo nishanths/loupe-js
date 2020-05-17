@@ -3,19 +3,16 @@
 const px = (v: number): string => v + "px"
 
 export type LoupeOptions = {
-	magnification?: number
-	width?: number | string
-	height?: number | string
-	container?: Node
-	additionalClassName?: string
-	style?: Partial<CSSStyleDeclaration>
-	shape?: Shape
+	magnification?: number // magnification level
+	width?: number | string // width of the loupe
+	height?: number | string // height of the loupe
+	container?: Node // containing node
+	additionalClassName?: string // additional class name to add to the loupe element
+	style?: Partial<CSSStyleDeclaration> // additional styles to add to the loupe element
+	shape?: Shape // shape of the loupe: "rectangle" | "shape"
 }
 
-export enum Shape {
-	Rectangle = "rectangle",
-	Circle = "circle",
-}
+export type Shape  = "rectangle" | "circle"
 
 export class Loupe {
 	readonly magnification: number
@@ -31,7 +28,7 @@ export class Loupe {
 		container = document.body,
 		additionalClassName,
 		style,
-		shape = Shape.Rectangle
+		shape = "rectangle"
 	}: LoupeOptions = {}) {
 		this.magnification = magnification
 		this.width = typeof width === "number" ? px(width) : width
@@ -74,7 +71,7 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 			width: loupe.width,
 			height: loupe.height
 		});
-		if (loupe.shape === Shape.Circle) {
+		if (loupe.shape === "circle") {
 			Object.assign(loupe.elem.style, { borderRadius: "50%" })
 		}
 
@@ -103,14 +100,3 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 	target.addEventListener("mouseover", handler);
 	return () => { target.removeEventListener("mouseover", handler) }
 }
-
-// const wnd = window as unknown as Window & { loupe: any }
-// wnd.loupe = {
-// 	Loupe,
-// 	addLoupe,
-// }
-
-// var l = new Loupe({
-// 	magnification: 2,
-// });
-// addLoupe(document.querySelector("img")!, "hobbit.jpeg", l)
