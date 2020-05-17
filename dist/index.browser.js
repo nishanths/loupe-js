@@ -1,3 +1,4 @@
+window["loupe"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -81,16 +82,11 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./src/index.ts":
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-/*! no static exports found */
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99,7 +95,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enableLoupe = exports.Loupe = void 0;
 var px = function (v) { return v + "px"; };
-window.loupe = exports;
 // A Loupe represents the loupe element and its properties such as
 // magnification level and size.
 //
@@ -207,6 +202,5 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
 
 
 /***/ })
-
-/******/ });
-//# sourceMappingURL=index.js.map
+/******/ ]);
+//# sourceMappingURL=index.browser.js.map

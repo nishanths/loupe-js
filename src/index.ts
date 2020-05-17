@@ -13,7 +13,7 @@ export type LoupeOptions = {
 }
 
 // Shape represents the shape of the loupe.
-export type Shape  = "rectangle" | "circle"
+export type Shape = "rectangle" | "circle"
 
 // A Loupe represents the loupe element and its properties such as
 // magnification level and size.

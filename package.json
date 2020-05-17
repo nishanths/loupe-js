@@ -1,12 +1,7 @@
 {
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.1",
-    "css-loader": "^3.5.3",
-    "mini-css-extract-plugin": "^0.9.0",
     "sass": "^1.26.5",
-    "sass-loader": "^8.0.2",
-    "source-map-loader": "^0.2.4",
-    "style-loader": "^1.2.1",
     "typescript": "^3.9.2",
     "typescript-formatter": "^7.2.2",
     "webpack": "^4.43.0",
@@ -18,7 +13,7 @@
   ],
   "name": "loupe-js",
   "version": "0.0.3",
-  "description": "A customizable, no-dependency image magnifier written in TypeScript",
+  "description": "A customizable, no-dependency image magnifier with touch events support written in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/nishanths/loupe-js",

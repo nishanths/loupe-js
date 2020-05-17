@@ -1,14 +1,18 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+// This is a really good resource:
+// https://marcobotto.com/blog/compiling-and-bundling-typescript-libraries-with-webpack/
 
 module.exports = {
   entry: {
     index: "./src/index.ts",
-    style: "./src/style.scss",
   },
   output: {
-    filename: "[name].js",
-    path: __dirname + "/dist"
+    filename: "[name].browser.js",
+    path: __dirname + "/dist",
+    libraryTarget: "window",
+    library: "loupe",
+    umdNamedDefine: true,
   },
+  optimization: { minimize: false },
   devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
@@ -16,24 +20,7 @@ module.exports = {
   },
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader"
-        ],
-      },
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader", exclude: /node_modules/ },
     ]
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ]
+  }
 };
