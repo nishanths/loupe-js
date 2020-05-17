@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width">
+	<title>Loupe Demo</title>
+	<style>
+		body {
+			padding: 15px;
+			margin: 0 auto;
+			max-width: 900px;
+			font-family: helvetica, arial, sans-serif;
+			color: #333;
+		}
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+		}
+		img {
+			max-width: 100%;
+		}
+		.bg {
+			background-image: url(./antidotes.jpeg);
+			height: auto;
+			width: 600px;
+		}
+		.item {
+			margin-top: 50px;
+			margin-bottom: 50px;
+		}
+		a:visited {
+			color: blue;
+		}
+		.nav {
+			margin-top: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.nav a {
+			margin-right: 10px;
+		}
+		.nav a:last-child {
+			margin-right: 0;
+		}
+		.caption {
+			margin-top: 8px;
+			color: #888;
+			text-align: center;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Loupe Demo</h1>
+		<div class="github">
+			Source code: <a href="https://github.com/nishanths/loupe">https://github.com/nishanths/loupe</a>
+		</div>
+		<div class="nav">
+			<a href="?shape=rectangle" id="rectangle">Rectangle</a>
+			<a href="?shape=circle" id="circle">Circle</a>
+		</div>
+		<div class="item">
+			<img src="demo/hobbit.jpeg" width="900px">
+			<div class="caption">original image size: 1920 x 1080, loupe magnification: 2.0x</div>
+		</div>
+	</div>
+	<script src="demo/index.js"></script>
+	<link rel="stylesheet" href="dist/style.css">
+	<script src="demo/demo.js"></script>
+</body>
+</html>

@@ -1,70 +1,116 @@
-const magnification = 2.5
-const magnifierSize = 250
-
-const loupe: HTMLDivElement = (() => {
-	const e = document.createElement("div")
-	e.classList.add("__loupe")
-	return e
-})()
-
-export const init = (doc: Document = document) => {
-	doc.body.appendChild(loupe)
-}
-
-export const addLoupe = (elem: HTMLElement, imgUrl: string, doc: Document = document): (() => void) => {
-	const handler = () => {
-		handleMouseOver(elem, imgUrl, doc)
-	}
-	elem.addEventListener("mouseover", handler)
-
-	return () => {
-		elem.removeEventListener("mouseover", handler)
-	}
-}
-
-const handleMouseOver = (target: HTMLElement, imgUrl: string, doc: Document) => {
-	Object.assign(target.style, { cursor: "none" })
-	Object.assign(loupe.style, { display: "block" })
-
-	const targetRect = target.getBoundingClientRect()
-	const top = targetRect.top + doc.body.scrollTop
-	const left = targetRect.left + doc.body.scrollLeft
-	const loupeRect = loupe.getBoundingClientRect()
-	const right = left + targetRect.width
-	const bottom = top + targetRect.height
-
-	Object.assign(loupe.style, {
-		backgroundSize: px(targetRect.width * magnification) + " " + px(targetRect.height * magnification),
-		backgroundImage: `url(${imgUrl})`,
-		width: px(magnifierSize),
-		height: px(magnifierSize),
-	})
-
-	const docMouseMoveHandler = (e: MouseEvent): void => {
-		if ((e.pageX < left - loupeRect.width / 12) ||
-			(e.pageX > right + loupeRect.width / 12) ||
-			(e.pageY < top - loupeRect.width / 12) ||
-			(e.pageY > bottom + loupeRect.width / 12)) {
-			Object.assign(loupe.style, { display: "none" })
-			doc.removeEventListener("mousemove", docMouseMoveHandler)
-			// return
-		}
-
-		const posx = (e.pageX - left) * magnification - loupeRect.width / 2
-		const posy = (e.pageY - top) * magnification - loupeRect.width / 2
-		Object.assign(loupe.style, {
-			left: px(e.pageX - loupeRect.width / 2),
-			top: px(e.pageY - loupeRect.width / 2),
-			backgroundPosition: `-${px(posx)} -${px(posy)}`,
-		})
-	}
-	doc.addEventListener("mousemove", docMouseMoveHandler)
-}
+// Original jQuery implementation: https://codepen.io/pixelacorn/pen/eNObea
 
 const px = (v: number): string => v + "px"
 
-const wnd = window as unknown as Window & { loupe: any }
-wnd.loupe = {
-	init,
-	addLoupe,
+export type LoupeOptions = {
+	magnification?: number
+	width?: number | string
+	height?: number | string
+	container?: Node
+	additionalClassName?: string
+	style?: Partial<CSSStyleDeclaration>
+	shape?: Shape
 }
+
+export enum Shape {
+	Rectangle = "rectangle",
+	Circle = "circle",
+}
+
+export class Loupe {
+	readonly magnification: number
+	readonly width: string
+	readonly height: string
+	readonly elem: HTMLDivElement
+	readonly shape: Shape
+
+	constructor({
+		magnification = 2,
+		width = 250,
+		height = 250 / 1.6,
+		container = document.body,
+		additionalClassName,
+		style,
+		shape = Shape.Rectangle
+	}: LoupeOptions = {}) {
+		this.magnification = magnification
+		this.width = typeof width === "number" ? px(width) : width
+		this.height = typeof height === "number" ? px(height) : height
+		this.shape = shape
+
+		this.elem = document.createElement("div")
+		this.elem.classList.add("__loupe")
+		if (additionalClassName !== undefined) {
+			this.elem.classList.add(additionalClassName)
+		}
+		if (style !== undefined) {
+			Object.assign(this.elem.style, style)
+		}
+		container.appendChild(this.elem)
+	}
+}
+
+export const addLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) => {
+	const doc = target.ownerDocument
+	const wnd = doc.defaultView
+
+	const handler = function() {
+		Object.assign(target.style, { cursor: "none" })
+		Object.assign(loupe.elem.style, { display: "block" })
+
+		const targetRect = target.getBoundingClientRect()
+		const width = targetRect.width
+		const height = targetRect.height
+		// left and top copied from jQuery $(offset)
+		// https://j11y.io/jquery/#v=1.11.2&fn=jQuery.fn.offset
+		const left = targetRect.left + (wnd?.pageXOffset || doc.documentElement.scrollLeft) - (doc.documentElement.clientLeft || 0)
+		const top = targetRect.top + (wnd?.pageYOffset || doc.documentElement.scrollTop) - (doc.documentElement.clientTop || 0)
+		const right = left + targetRect.width;
+		const bottom = top + targetRect.height;
+
+		Object.assign(loupe.elem.style, {
+			backgroundSize: width * loupe.magnification + 'px ' + height * loupe.magnification + "px",
+			backgroundImage: 'url("' + imgUrl + '")',
+			width: loupe.width,
+			height: loupe.height
+		});
+		if (loupe.shape === Shape.Circle) {
+			Object.assign(loupe.elem.style, { borderRadius: "50%" })
+		}
+
+		const loupeOffset = loupe.elem.getBoundingClientRect().width / 2;
+
+		const docMouseMoveHandler = function(e: MouseEvent) {
+			if (e.pageX < left - loupeOffset / 6 ||
+				e.pageX > right + loupeOffset / 6 ||
+				e.pageY < top - loupeOffset / 6 ||
+				e.pageY > bottom + loupeOffset / 6) {
+				Object.assign(loupe.elem.style, { display: "none" })
+				doc.removeEventListener("mousemove", docMouseMoveHandler)
+				return
+			}
+			const bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset)
+			const bgPosY = -((e.pageY - top) * loupe.magnification - loupeOffset)
+			Object.assign(loupe.elem.style, {
+				left: px(e.pageX - loupeOffset),
+				top: px(e.pageY - loupeOffset),
+				backgroundPosition: px(bgPosX) + " " + px(bgPosY)
+			});
+		}
+		doc.addEventListener("mousemove", docMouseMoveHandler)
+	}
+
+	target.addEventListener("mouseover", handler);
+	return () => { target.removeEventListener("mouseover", handler) }
+}
+
+// const wnd = window as unknown as Window & { loupe: any }
+// wnd.loupe = {
+// 	Loupe,
+// 	addLoupe,
+// }
+
+// var l = new Loupe({
+// 	magnification: 2,
+// });
+// addLoupe(document.querySelector("img")!, "hobbit.jpeg", l)
