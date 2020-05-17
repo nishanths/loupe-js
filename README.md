@@ -13,11 +13,11 @@ Demo: https://nishanths.github.io/loupe-js/
 Use npm or yarn
 
 ```
-npm i --save 'loupe-js'
+npm i --save loupe-js
 ```
 
 ```
-yarn add 'loupe-js'
+yarn add loupe-js
 ```
 
 If you want to evaluate the package quickly use `demo/index.js`, which has the module's
