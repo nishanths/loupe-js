@@ -1,5 +1,4 @@
 WEBPACK := yarn webpack-cli
-SASS := yarn sass
 
 .PHONY: default
 default:
@@ -11,7 +10,6 @@ dev: clean
 
 .PHONY: dist
 dist: clean
-	$(SASS) --no-source-map --style=compressed src/style.scss dist/style.css
 	$(WEBPACK) --no-color --mode=production
 
 .PHONY: clean
