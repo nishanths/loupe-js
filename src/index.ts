@@ -106,7 +106,29 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 				backgroundPosition: px(bgPosX) + " " + px(bgPosY)
 			});
 		}
+		const docTouchMoveHandler = function(e: TouchEvent) {
+			const t = e.touches.item(0)
+			if (!t) {
+				return
+			}
+			if (t.pageX < left - loupeOffset / 6 ||
+				t.pageX > right + loupeOffset / 6 ||
+				t.pageY < top - loupeOffset / 6 ||
+				t.pageY > bottom + loupeOffset / 6) {
+				Object.assign(loupe.elem.style, { display: "none" })
+				doc.removeEventListener("touchmove", docTouchMoveHandler)
+				return
+			}
+			const bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset)
+			const bgPosY = -((t.pageY - top) * loupe.magnification - loupeOffset)
+			Object.assign(loupe.elem.style, {
+				left: px(t.pageX - loupeOffset),
+				top: px(t.pageY - loupeOffset),
+				backgroundPosition: px(bgPosX) + " " + px(bgPosY)
+			});
+		}
 		doc.addEventListener("mousemove", docMouseMoveHandler)
+		doc.addEventListener("touchmove", docTouchMoveHandler)
 	}
 
 	target.addEventListener("mouseover", handler);

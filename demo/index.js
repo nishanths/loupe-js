@@ -100,6 +100,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.enableLoupe = exports.Loupe = void 0;
 var px = function (v) { return v + "px"; };
 window.loupe = exports;
+// A Loupe represents the loupe element and its properties such as
+// magnification level and size.
+//
+// Use enableLoupe to add the loupe to an image-displaying element of your
+// choice.
 var Loupe = /** @class */ (function () {
     function Loupe(_a) {
         var _b = _a === void 0 ? {} : _a, _c = _b.magnification, magnification = _c === void 0 ? 2.25 : _c, _d = _b.width, width = _d === void 0 ? 250 : _d, _e = _b.height, height = _e === void 0 ? 250 / 1.6 : _e, _f = _b.container, container = _f === void 0 ? document.body : _f, additionalClassName = _b.additionalClassName, style = _b.style, _g = _b.shape, shape = _g === void 0 ? "rectangle" : _g;
@@ -120,6 +125,12 @@ var Loupe = /** @class */ (function () {
     return Loupe;
 }());
 exports.Loupe = Loupe;
+// enableLoupe adds the specified loupe object to the target element. The target
+// element can be, for instance, an <img> element or a <div> element with a
+// background-image.
+//
+// enableLoupe returns a function that can be later be used to disable the loupe
+// on the target element.
 exports.enableLoupe = function (target, imgUrl, loupe) {
     var doc = target.ownerDocument;
     var wnd = doc.defaultView;
@@ -162,7 +173,29 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 backgroundPosition: px(bgPosX) + " " + px(bgPosY)
             });
         };
+        var docTouchMoveHandler = function (e) {
+            var t = e.touches.item(0);
+            if (!t) {
+                return;
+            }
+            if (t.pageX < left - loupeOffset / 6 ||
+                t.pageX > right + loupeOffset / 6 ||
+                t.pageY < top - loupeOffset / 6 ||
+                t.pageY > bottom + loupeOffset / 6) {
+                Object.assign(loupe.elem.style, { display: "none" });
+                doc.removeEventListener("touchmove", docTouchMoveHandler);
+                return;
+            }
+            var bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset);
+            var bgPosY = -((t.pageY - top) * loupe.magnification - loupeOffset);
+            Object.assign(loupe.elem.style, {
+                left: px(t.pageX - loupeOffset),
+                top: px(t.pageY - loupeOffset),
+                backgroundPosition: px(bgPosX) + " " + px(bgPosY)
+            });
+        };
         doc.addEventListener("mousemove", docMouseMoveHandler);
+        doc.addEventListener("touchmove", docTouchMoveHandler);
     };
     target.addEventListener("mouseover", handler);
     return function () { target.removeEventListener("mouseover", handler); };
