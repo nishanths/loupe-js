@@ -42,6 +42,8 @@ type LoupeOptions = {
 }
 ```
 
+If the `shape` is `circle` you should use the same values for `width` and `height`.
+
 The default values are
 
 ```typescript
