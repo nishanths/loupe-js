@@ -102,8 +102,8 @@ for an `<img>` element, or `background-image` CSS property for a `<div>` element
 const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;
 ```
 
-`enableLoupe()` returns a function that can be later be used to disable the loupe
-on the target element.
+`enableLoupe()` returns a cleanup function that can be used to disable the loupe
+on the target element at a later time.
 
 ## Recommendations
 
