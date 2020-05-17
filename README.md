@@ -20,10 +20,14 @@ npm i --save 'loupe-js'
 yarn add 'loupe-js'
 ```
 
+If you want to evaluate the package quickly use `demo/index.js`, which has the module's
+exports in `window.loupe`.
+
 ## Basic example
 
 ```typescript
 import { Loupe, enableLoupe } from "loupe-js"
+import "loupe-js/style.css"
 
 const img = document.querySelector("img")!
 
