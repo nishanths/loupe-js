@@ -16,13 +16,13 @@
     "dist",
     "src"
   ],
-  "name": "loupe",
+  "name": "loupe-js",
   "version": "0.0.0",
-  "description": "image magnifier",
+  "description": "A customizable, no-dependency image magnifier written in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/nishanths/loupe",
-  "author": "Nishanth Shanmugham <nishanths@utexas.edu>",
+  "repository": "https://github.com/nishanths/loupe-js",
+  "author": "Nishanth Shanmugham",
   "license": "BSD-2-Clause",
   "private": false
 }

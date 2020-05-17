@@ -2,9 +2,9 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-Demo: https://nishanths.github.io/loupe/
+Demo: https://nishanths.github.io/loupe-js/
 
-<a href="https://nishanths.github.io/loupe">
+<a href="https://nishanths.github.io/loupe-js">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
 </a>
 
@@ -13,17 +13,17 @@ Demo: https://nishanths.github.io/loupe/
 Use npm or yarn
 
 ```
-npm i --save '@nishanths/loupe'
+npm i --save 'loupe-js'
 ```
 
 ```
-yarn add '@nishanths/yarn'
+yarn add 'loupe-js'
 ```
 
 ## Basic example
 
 ```typescript
-import { Loupe, enableLoupe } from "@nishanths/loupe"
+import { Loupe, enableLoupe } from "loupe-js"
 
 const img = document.querySelector("img")!
 
@@ -87,8 +87,8 @@ the `<div>` element.
 const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;
 ```
 
-It returns a function that can be later be used to remove the loupe from the target
-element.
+`enableLoupe` returns a function that can be later be used to disable the loupe
+on the target element.
 
 ## License
 
