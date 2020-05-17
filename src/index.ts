@@ -63,6 +63,29 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 	const doc = target.ownerDocument
 	const wnd = doc.defaultView
 
+	const moveHandlers: {
+		docMouseMoveHandler: ((e: MouseEvent) => void) | undefined
+		docTouchMoveHandler: ((e: TouchEvent) => void) | undefined
+	} = {
+		docMouseMoveHandler: undefined,
+		docTouchMoveHandler: undefined,
+	}
+
+	const stopMouseMove = () => {
+		if (moveHandlers.docMouseMoveHandler !== undefined) {
+			Object.assign(loupe.elem.style, { display: "none" })
+			doc.removeEventListener("mousemove", moveHandlers.docMouseMoveHandler)
+			moveHandlers.docMouseMoveHandler = undefined
+		}
+	}
+	const stopTouchMove = () => {
+		if (moveHandlers.docTouchMoveHandler !== undefined) {
+			Object.assign(loupe.elem.style, { display: "none" })
+			doc.removeEventListener("touchmove", moveHandlers.docTouchMoveHandler)
+			moveHandlers.docTouchMoveHandler = undefined
+		}
+	}
+
 	const handler = function() {
 		Object.assign(target.style, { cursor: "none" })
 		Object.assign(loupe.elem.style, { display: "block" })
@@ -89,13 +112,12 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 
 		const loupeOffset = loupe.elem.getBoundingClientRect().width / 2;
 
-		const docMouseMoveHandler = function(e: MouseEvent) {
+		moveHandlers.docMouseMoveHandler = function(e: MouseEvent) {
 			if (e.pageX < left - loupeOffset / 6 ||
 				e.pageX > right + loupeOffset / 6 ||
 				e.pageY < top - loupeOffset / 6 ||
 				e.pageY > bottom + loupeOffset / 6) {
-				Object.assign(loupe.elem.style, { display: "none" })
-				doc.removeEventListener("mousemove", docMouseMoveHandler)
+				stopMouseMove()
 				return
 			}
 			const bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset)
@@ -106,7 +128,7 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 				backgroundPosition: px(bgPosX) + " " + px(bgPosY)
 			});
 		}
-		const docTouchMoveHandler = function(e: TouchEvent) {
+		moveHandlers.docTouchMoveHandler = function(e: TouchEvent) {
 			const t = e.touches.item(0)
 			if (!t) {
 				return
@@ -115,8 +137,7 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 				t.pageX > right + loupeOffset / 6 ||
 				t.pageY < top - loupeOffset / 6 ||
 				t.pageY > bottom + loupeOffset / 6) {
-				Object.assign(loupe.elem.style, { display: "none" })
-				doc.removeEventListener("touchmove", docTouchMoveHandler)
+				stopTouchMove()
 				return
 			}
 			const bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset)
@@ -127,13 +148,16 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 				backgroundPosition: px(bgPosX) + " " + px(bgPosY)
 			});
 		}
-		doc.addEventListener("mousemove", docMouseMoveHandler)
-		doc.addEventListener("touchmove", docTouchMoveHandler)
+		doc.addEventListener("mousemove", moveHandlers.docMouseMoveHandler)
+		doc.addEventListener("touchmove", moveHandlers.docTouchMoveHandler)
 	}
 
 	target.addEventListener("mouseover", handler);
 	target.addEventListener("touchstart", handler);
+
 	return () => {
+		stopMouseMove()
+		stopTouchMove()
 		target.removeEventListener("mouseover", handler)
 		target.removeEventListener("touchstart", handler)
 	}

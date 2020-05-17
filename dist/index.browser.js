@@ -129,6 +129,24 @@ exports.Loupe = Loupe;
 exports.enableLoupe = function (target, imgUrl, loupe) {
     var doc = target.ownerDocument;
     var wnd = doc.defaultView;
+    var moveHandlers = {
+        docMouseMoveHandler: undefined,
+        docTouchMoveHandler: undefined,
+    };
+    var stopMouseMove = function () {
+        if (moveHandlers.docMouseMoveHandler !== undefined) {
+            Object.assign(loupe.elem.style, { display: "none" });
+            doc.removeEventListener("mousemove", moveHandlers.docMouseMoveHandler);
+            moveHandlers.docMouseMoveHandler = undefined;
+        }
+    };
+    var stopTouchMove = function () {
+        if (moveHandlers.docTouchMoveHandler !== undefined) {
+            Object.assign(loupe.elem.style, { display: "none" });
+            doc.removeEventListener("touchmove", moveHandlers.docTouchMoveHandler);
+            moveHandlers.docTouchMoveHandler = undefined;
+        }
+    };
     var handler = function () {
         Object.assign(target.style, { cursor: "none" });
         Object.assign(loupe.elem.style, { display: "block" });
@@ -151,13 +169,12 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
             Object.assign(loupe.elem.style, { borderRadius: "50%" });
         }
         var loupeOffset = loupe.elem.getBoundingClientRect().width / 2;
-        var docMouseMoveHandler = function (e) {
+        moveHandlers.docMouseMoveHandler = function (e) {
             if (e.pageX < left - loupeOffset / 6 ||
                 e.pageX > right + loupeOffset / 6 ||
                 e.pageY < top - loupeOffset / 6 ||
                 e.pageY > bottom + loupeOffset / 6) {
-                Object.assign(loupe.elem.style, { display: "none" });
-                doc.removeEventListener("mousemove", docMouseMoveHandler);
+                stopMouseMove();
                 return;
             }
             var bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset);
@@ -168,7 +185,7 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 backgroundPosition: px(bgPosX) + " " + px(bgPosY)
             });
         };
-        var docTouchMoveHandler = function (e) {
+        moveHandlers.docTouchMoveHandler = function (e) {
             var t = e.touches.item(0);
             if (!t) {
                 return;
@@ -177,8 +194,7 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 t.pageX > right + loupeOffset / 6 ||
                 t.pageY < top - loupeOffset / 6 ||
                 t.pageY > bottom + loupeOffset / 6) {
-                Object.assign(loupe.elem.style, { display: "none" });
-                doc.removeEventListener("touchmove", docTouchMoveHandler);
+                stopTouchMove();
                 return;
             }
             var bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset);
@@ -189,12 +205,14 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 backgroundPosition: px(bgPosX) + " " + px(bgPosY)
             });
         };
-        doc.addEventListener("mousemove", docMouseMoveHandler);
-        doc.addEventListener("touchmove", docTouchMoveHandler);
+        doc.addEventListener("mousemove", moveHandlers.docMouseMoveHandler);
+        doc.addEventListener("touchmove", moveHandlers.docTouchMoveHandler);
     };
     target.addEventListener("mouseover", handler);
     target.addEventListener("touchstart", handler);
     return function () {
+        stopMouseMove();
+        stopTouchMove();
         target.removeEventListener("mouseover", handler);
         target.removeEventListener("touchstart", handler);
     };
