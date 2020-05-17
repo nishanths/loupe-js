@@ -198,7 +198,11 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
         doc.addEventListener("touchmove", docTouchMoveHandler);
     };
     target.addEventListener("mouseover", handler);
-    return function () { target.removeEventListener("mouseover", handler); };
+    target.addEventListener("touchstart", handler);
+    return function () {
+        target.removeEventListener("mouseover", handler);
+        target.removeEventListener("touchstart", handler);
+    };
 };
 
 

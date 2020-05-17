@@ -132,5 +132,9 @@ export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) =
 	}
 
 	target.addEventListener("mouseover", handler);
-	return () => { target.removeEventListener("mouseover", handler) }
+	target.addEventListener("touchstart", handler);
+	return () => {
+		target.removeEventListener("mouseover", handler)
+		target.removeEventListener("touchstart", handler)
+	}
 }
