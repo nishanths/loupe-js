@@ -50,7 +50,7 @@ export class Loupe {
 	}
 }
 
-export const addLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) => {
+export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) => {
 	const doc = target.ownerDocument
 	const wnd = doc.defaultView
 

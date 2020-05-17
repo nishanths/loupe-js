@@ -1,4 +1,4 @@
-const { Loupe, addLoupe } = window.loupe
+const { Loupe, enableLoupe } = window.loupe
 const useRectangle = new URLSearchParams(window.location.search).get("shape") === "rectangle"
 
 const magnification = 2
@@ -14,5 +14,5 @@ const opt = useRectangle ? {
 
 const l = new Loupe(opt)
 const target = document.querySelector("img")
-addLoupe(target, target.src, l)
+enableLoupe(target, target.src, l)
 

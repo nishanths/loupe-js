@@ -97,7 +97,7 @@
 
 // Original jQuery implementation: https://codepen.io/pixelacorn/pen/eNObea
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addLoupe = exports.Loupe = exports.Shape = void 0;
+exports.enableLoupe = exports.Loupe = exports.Shape = void 0;
 var px = function (v) { return v + "px"; };
 window.loupe = exports;
 var Shape;
@@ -125,7 +125,7 @@ var Loupe = /** @class */ (function () {
     return Loupe;
 }());
 exports.Loupe = Loupe;
-exports.addLoupe = function (target, imgUrl, loupe) {
+exports.enableLoupe = function (target, imgUrl, loupe) {
     var doc = target.ownerDocument;
     var wnd = doc.defaultView;
     var handler = function () {
