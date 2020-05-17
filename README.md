@@ -15,7 +15,7 @@ https://nishanths.github.io/loupe/
 ### Basic example
 
 ```typescript
-import { Loupe, LoupeOp enableLoupe } from "@nishanths/loupe"
+import { Loupe, enableLoupe } from "@nishanths/loupe"
 
 const img = document.querySelector("img")!
 
@@ -28,9 +28,7 @@ enableLoupe(img, img.src, loupe)
 The `Loupe` constructor constructs a loupe object. By default the loupe element
 is placed at the end of `document.body`.
 
-Pass in a `LoupeOptions` object to the constructor to customize the loupe.
-
-All propeties are optional.
+Pass in a `LoupeOptions` object to the constructor to customize the loupe. All propeties are optional.
 
 ```typescript
 type LoupeOptions = {
@@ -40,7 +38,7 @@ type LoupeOptions = {
 	container?: Node // containing node
 	additionalClassName?: string // additional class name to add to the loupe element
 	style?: Partial<CSSStyleDeclaration> // additional styles to add to the loupe element
-	shape?: Shape // shape of the loupe: "rectangle" | "circle"
+	shape?: "rectangle" | "circle" // shape of the loupe
 }
 ```
 
