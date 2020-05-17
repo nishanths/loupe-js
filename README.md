@@ -2,6 +2,8 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
+Demo: https://nishanths.github.io/loupe/
+
 <a href="https://nishanths.github.io/loupe">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
 </a>
@@ -10,13 +12,7 @@ An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pi
 
 TODO
 
-## Demo
-
-https://nishanths.github.io/loupe/
-
-## Documentation
-
-### Basic example
+### Basic Example
 
 ```typescript
 import { Loupe, enableLoupe } from "@nishanths/loupe"
@@ -32,6 +28,8 @@ const loupe = new Loupe({
 })
 enableLoupe(img, img.src, loupe)
 ```
+
+## Documentation
 
 ### Loupe
 
