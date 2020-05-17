@@ -26,9 +26,10 @@ fmt:
 		! -regex '.*/node_modules/.*' | \
 		xargs yarn tsfmt --replace
 
-.PHONY: copyjs-demo
-copyjs-demo:
+.PHONY: copy-demo
+copy-demo: clean
 	$(WEBPACK) --mode=development
+	cp dist/style.css demo/style.css
 	# Copy development dist.js (non-minified) to demo/ and add the following line
 	#   window.loupe = exports;
 	# in an appropriate place.

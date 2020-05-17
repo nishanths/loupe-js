@@ -1,0 +1,11 @@
+.__loupe {
+  border: 2px solid black;
+  position: absolute;
+  z-index: 200;
+  background-repeat: no-repeat;
+  background-color: white;
+  display: none;
+  cursor: none;
+}
+
+/*# sourceMappingURL=style.css.map*/

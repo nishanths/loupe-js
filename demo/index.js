@@ -107,7 +107,7 @@ var Shape;
 })(Shape = exports.Shape || (exports.Shape = {}));
 var Loupe = /** @class */ (function () {
     function Loupe(_a) {
-        var _b = _a === void 0 ? {} : _a, _c = _b.magnification, magnification = _c === void 0 ? 2.5 : _c, _d = _b.width, width = _d === void 0 ? 250 : _d, _e = _b.height, height = _e === void 0 ? 250 / 1.6 : _e, _f = _b.container, container = _f === void 0 ? document.body : _f, additionalClassName = _b.additionalClassName, style = _b.style, _g = _b.shape, shape = _g === void 0 ? Shape.Rectangle : _g;
+        var _b = _a === void 0 ? {} : _a, _c = _b.magnification, magnification = _c === void 0 ? 2 : _c, _d = _b.width, width = _d === void 0 ? 250 : _d, _e = _b.height, height = _e === void 0 ? 250 / 1.6 : _e, _f = _b.container, container = _f === void 0 ? document.body : _f, additionalClassName = _b.additionalClassName, style = _b.style, _g = _b.shape, shape = _g === void 0 ? Shape.Rectangle : _g;
         this.magnification = magnification;
         this.width = typeof width === "number" ? px(width) : width;
         this.height = typeof height === "number" ? px(height) : height;
