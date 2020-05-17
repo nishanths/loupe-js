@@ -2,7 +2,7 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-(A loupe is a small magnification device.)
+A loupe is a small magnification glass-like device.
 
 Demo: https://nishanths.github.io/loupe-js/
 
