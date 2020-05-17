@@ -2,6 +2,8 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
+It supports mouse and touch events.
+
 A loupe is a small magnification glass-like device.
 
 Demo: https://nishanths.github.io/loupe-js/
@@ -25,7 +27,7 @@ yarn add loupe-js
 If you want to evaluate the package quickly use `demo/index.js`, which has the module's
 exports in `window.loupe`.
 
-## Basic example
+## Example
 
 Import "loupe-js" and the related CSS file.
 
@@ -35,13 +37,15 @@ import "loupe-js/dist/style.css"
 
 const img = document.querySelector("img")!
 
-const loupe = new Loupe({
+const options = {
 	magnification: 2,
 	width: 250,
 	height: 250,
 	style: { boxShadow: "4px 5px 5px 4px rgba(0,0,0,0.5)" },
 	shape: "circle",
-})
+}
+const loupe = new Loupe(options) // or just `new Loupe()` to use default options
+
 enableLoupe(img, img.src, loupe)
 ```
 
