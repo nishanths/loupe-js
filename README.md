@@ -4,9 +4,9 @@ An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pi
 
 It supports mouse and touch events.
 
-A loupe is a small magnification glass-like device.
+[__Demo__](https://nishanths.github.io/loupe-js/)
 
-Demo: https://nishanths.github.io/loupe-js/
+(A loupe is a small magnification device.)
 
 <a href="https://nishanths.github.io/loupe-js">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
@@ -24,8 +24,8 @@ npm i --save loupe-js
 yarn add loupe-js
 ```
 
-If you want to evaluate the package quickly use `demo/index.js`, which has the module's
-exports in `window.loupe`.
+If you want to evaluate the package quickly without using a package manager,
+use `demo/index.js`, which has the module's exports in `window.loupe`.
 
 ## Example
 
@@ -41,6 +41,7 @@ const options = {
 	magnification: 2,
 	width: 250,
 	height: 250,
+	additionalClassName: "customLoupeClass",
 	style: { boxShadow: "4px 5px 5px 4px rgba(0,0,0,0.5)" },
 	shape: "circle",
 }
@@ -90,19 +91,18 @@ The default `LoupeOptions` values are
 
 ### enableLoupe
 
-`enableLoupe` adds the specified `loupe` object to the `target` element. The `target`
+`enableLoupe()` adds the specified `loupe` object to the `target` element. The `target`
 element can be, for instance, an `<img>` element or a `<div>` element with a
 `background-image`.
 
-The `imgUrl` is the URL to the image. For example, this is the `src` property
-of the `<img>` element, or the value of the `background-image` CSS property for
-the `<div>` element.
+The `imgUrl` is the URL to the image. For example, it is the `src` property
+for an `<img>` element, or `background-image` CSS property for a `<div>` element.
 
 ```typescript
 const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;
 ```
 
-`enableLoupe` returns a function that can be later be used to disable the loupe
+`enableLoupe()` returns a function that can be later be used to disable the loupe
 on the target element.
 
 ## Recommendations
