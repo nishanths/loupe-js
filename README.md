@@ -75,3 +75,6 @@ const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => 
 It returns a function that can be later be used to remove the loupe from the target
 element.
 
+## License
+
+BSD 2-Clause
