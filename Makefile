@@ -1,7 +1,9 @@
 WEBPACK := yarn webpack-cli
 
 # Before committing changes, run `make copy-demo`. Then commit.
-# Before publishing to npm/yarn, run `make dist`. Then publish.
+
+# Before publishing to npm/yarn, run `make copy-demo` to test functionality
+# and breakages. Then run `make dist`. Then publish.
 
 .PHONY: default
 default:
