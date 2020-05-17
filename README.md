@@ -24,8 +24,8 @@ npm i --save loupe-js
 yarn add loupe-js
 ```
 
-If you want to evaluate the package quickly without using a package manager,
-use `demo/index.js`, which has the module's exports in `window.loupe`.
+If you want to evaluate the package quickly without using a package manager
+use `dist/index.browser.js`, which has the module's exports in `window.loupe`.
 
 ## Example
 
