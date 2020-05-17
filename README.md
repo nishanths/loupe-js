@@ -101,6 +101,16 @@ const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => 
 `enableLoupe` returns a function that can be later be used to disable the loupe
 on the target element.
 
+## Recommendations
+
+Using a `box-shadow` on the loupe helps separate the loupe nicely from your image.
+For example:
+```typescript
+new Loupe({
+	style: { boxShadow: "4px 5px 5px 4px rgba(0,0,0,0.5)" },
+})
+```
+
 ## License
 
 BSD 2-Clause
