@@ -1,1 +1,11 @@
-.__loupe{border:2px solid #fff;position:absolute;z-index:1000;background-repeat:no-repeat;background-color:#fff;display:none;cursor:none}
+.__loupe {
+  border: 2px solid white;
+  position: absolute;
+  z-index: 1001;
+  background-repeat: no-repeat;
+  background-color: white;
+  display: none;
+  cursor: none;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22../src/style.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAAA;EACC;EACA;EACA;EACA;EACA;EACA;EACA%22,%22file%22:%22style.css%22%7D */
