@@ -1,12 +1,13 @@
 # Loupe
 
-An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
+An image magnifier for JavaScript. Extended from this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-Features:
+Features
 
 * supports mouse and touch events
-* customizable magnification level, loupe size, loupe shape, and CSS
-* works with React (see example)
+* customize magnification level, loupe size, loupe shape, and use custom CSS
+* TypeScript type definitions
+* works with React (see examples)
 * proper cleanup of event listeners and DOM elements
 
 [__Demo__](https://nishanths.github.io/loupe-js/)
@@ -118,7 +119,7 @@ The `Loupe` constructor constructs a loupe object.
 const loupe = new Loupe(options)
 ```
 
-Pass in a optional `LoupeOptions` object to the constructor to customize the loupe.
+Pass in an optional `LoupeOptions` object to the constructor to customize the loupe.
 
 ```typescript
 type LoupeOptions = {
