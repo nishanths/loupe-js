@@ -2,11 +2,14 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-It supports mouse and touch events, and it can be used with React.
+Features:
+
+* supports mouse and touch events
+* customizable magnification level, loupe size, loupe shape, and CSS
+* works with React (see example)
+* proper cleanup of event listeners and DOM elements
 
 [__Demo__](https://nishanths.github.io/loupe-js/)
-
-(A loupe is a small magnification device.)
 
 <a href="https://nishanths.github.io/loupe-js">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
@@ -25,7 +28,7 @@ yarn add loupe-js
 ```
 
 If you want to evaluate the package quickly without using a package manager
-use `dist/index.browser.js`, which has the module's exports in `window.loupe`.
+use `dist/index.window.js`, which has the module's exports in `window.loupe`.
 
 ## Example
 
@@ -94,6 +97,9 @@ For a class component put the code in `componentDidMount()` and `componentWillUn
 const disable = enableLoupe(target, imgUrl, loupe)
 ```
 
+It returns a cleanup function that can be used to disable the loupe
+on the target element at a later time.
+
 The target element can be, for instance, an `<img>` element or a `<div>` element with a
 background-image. The `imgUrl` is the URL to the image. For example, it is the src property
 for an `<img>` element, or background-image CSS property for a `<div>` element.
@@ -101,11 +107,8 @@ for an `<img>` element, or background-image CSS property for a `<div>` element.
 The type definition is:
 
 ```typescript
-(target: HTMLElement, imgUrl: string, loupe: Loupe) => (() => void)
+(target: HTMLElement | SVGElement, imgUrl: string, loupe: Loupe) => (() => void)
 ```
-
-`enableLoupe()` returns a cleanup function that can be used to disable the loupe
-on the target element at a later time.
 
 ### Loupe
 

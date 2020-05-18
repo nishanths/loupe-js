@@ -225,4 +225,4 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.browser.js.map
+//# sourceMappingURL=index.window.js.map

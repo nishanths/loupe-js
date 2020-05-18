@@ -18,4 +18,4 @@ export declare class Loupe {
     constructor({ magnification, width, height, container, additionalClassName, style, shape }?: LoupeOptions);
     unmount(): void;
 }
-export declare const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;
+export declare const enableLoupe: (target: HTMLElement | SVGElement, imgUrl: string, loupe: Loupe) => () => void;

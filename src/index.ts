@@ -65,7 +65,7 @@ export class Loupe {
 //
 // enableLoupe returns a function that can be later be used to disable the loupe
 // on the target element.
-export const enableLoupe = (target: HTMLElement, imgUrl: string, loupe: Loupe) => {
+export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, loupe: Loupe) => {
 	const doc = target.ownerDocument
 	const wnd = doc.defaultView
 

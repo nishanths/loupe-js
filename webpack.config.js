@@ -6,7 +6,7 @@ module.exports = {
     index: "./src/index.ts",
   },
   output: {
-    filename: "[name].browser.js",
+    filename: "[name].window.js",
     path: __dirname + "/dist",
     libraryTarget: "window",
     library: "loupe",
