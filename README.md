@@ -20,6 +20,7 @@ __Demo__: https://nishanths.github.io/loupe-js
 * customize magnification level, loupe size, loupe shape, and use custom CSS
 * TypeScript type definitions
 * works with React (see examples)
+* proper event listener and DOM cleanup
 
 <a href="https://nishanths.github.io/loupe-js">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
