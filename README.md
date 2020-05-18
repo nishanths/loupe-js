@@ -1,6 +1,6 @@
 # Loupe
 
-An image magnifier for JavaScript. Extended from this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
+An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
 Features
 
@@ -56,23 +56,23 @@ enableLoupe(img, img.src, loupe)
 
 ## React Example
 
-For a function component using hooks:
+For a function component that uses hooks:
 
 ```typescript
+import React, { useEffect } from "react"
 import { Loupe, enableLoupe } from "loupe-js"
 import "loupe-js/dist/style.css"
-import React, { useEffect } from "react"
 
 export const MyPicture: React.SFC<{ imgUrl: string }> = ({ imgUrl }) => {
   const pictureRef = useRef<HTMLDivElement | undefined>(undefined)
 
   useEffect(() => {
     if (pictureRef.current !== undefined) {
-      // create a loupe, and add it to the target element
+      // create a loupe and add it to the target element
       const loupe = new Loupe()
       const disable = enableLoupe(pictureRef.current, imgUrl, loupe)
 
-      // on the way out, disable the loupe on the target element, and
+      // on the way out disable the loupe on the target element, and
       // remove it from the DOM
       return () => {
         disable()
@@ -85,7 +85,7 @@ export const MyPicture: React.SFC<{ imgUrl: string }> = ({ imgUrl }) => {
 }
 ```
 
-For a class component put the code in `componentDidMount()` and `componentWillUnmount()` instead.
+For a class component put the relevant code in `componentDidMount()` and `componentWillUnmount()` instead.
 
 
 ## Documentation
@@ -155,8 +155,8 @@ The default `LoupeOptions` values are
 The `Loupe#unmount()` method removes the loupe element from the `container` node
 in the DOM. The loupe object should not be used after.
 
-```
-loupe.unmount() // loupe element will longer exist in the DOM
+```ts
+loupe.unmount() // loupe element will no longer exist in the DOM
 ```
 
 ## Recommendations
