@@ -2,7 +2,7 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-It supports mouse and touch events.
+It supports mouse and touch events, and it can be used with React.
 
 [__Demo__](https://nishanths.github.io/loupe-js/)
 
@@ -50,13 +50,72 @@ const loupe = new Loupe(options) // or just `new Loupe()` to use default options
 enableLoupe(img, img.src, loupe)
 ```
 
+## React Example
+
+For a function component using hooks:
+
+```typescript
+import { Loupe, enableLoupe } from "loupe-js"
+import "loupe-js/dist/style.css"
+import React, { useEffect } from "react"
+
+export const MyPicture: React.SFC<{ imgUrl: string }> = ({ imgUrl }) => {
+  const pictureRef = useRef<HTMLDivElement | undefined>(undefined)
+
+  useEffect(() => {
+    if (pictureRef.current !== undefined) {
+      // create a loupe, and add it to the target element
+      const loupe = new Loupe()
+      const disable = enableLoupe(pictureRef.current, imgUrl, loupe)
+
+      // on the way out, disable the loupe on the target element, and
+      // remove it from the DOM
+      return () => {
+        disable()
+        loupe.unmount()
+      }
+    }
+  }, [pictureRef, imgUrl])
+
+  return <div className="pic" ref={r => { pictureRef.current = r }}></div>
+}
+```
+
+For a class component put the code in `componentDidMount()` and `componentWillUnmount()` instead.
+
+
 ## Documentation
+
+### enableLoupe
+
+`enableLoupe()` adds the specified `Loupe` object to the `target` element.
+
+```typescript
+const disable = enableLoupe(target, imgUrl, loupe)
+```
+
+The target element can be, for instance, an `<img>` element or a `<div>` element with a
+background-image. The `imgUrl` is the URL to the image. For example, it is the src property
+for an `<img>` element, or background-image CSS property for a `<div>` element.
+
+The type definition is:
+
+```typescript
+(target: HTMLElement, imgUrl: string, loupe: Loupe) => (() => void)
+```
+
+`enableLoupe()` returns a cleanup function that can be used to disable the loupe
+on the target element at a later time.
 
 ### Loupe
 
 The `Loupe` constructor constructs a loupe object.
 
-Pass in a `LoupeOptions` object to the constructor to customize the loupe.
+```typescript
+const loupe = new Loupe(options)
+```
+
+Pass in a optional `LoupeOptions` object to the constructor to customize the loupe.
 
 ```typescript
 type LoupeOptions = {
@@ -89,21 +148,12 @@ The default `LoupeOptions` values are
 }
 ```
 
-### enableLoupe
+The `Loupe#unmount()` method removes the loupe element from the `container` node
+in the DOM. The loupe object should not be used after.
 
-`enableLoupe()` adds the specified `loupe` object to the `target` element. The `target`
-element can be, for instance, an `<img>` element or a `<div>` element with a
-`background-image`.
-
-The `imgUrl` is the URL to the image. For example, it is the `src` property
-for an `<img>` element, or `background-image` CSS property for a `<div>` element.
-
-```typescript
-const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;
 ```
-
-`enableLoupe()` returns a cleanup function that can be used to disable the loupe
-on the target element at a later time.
+loupe.unmount() // loupe element will longer exist in the DOM
+```
 
 ## Recommendations
 

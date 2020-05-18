@@ -26,6 +26,7 @@ export class Loupe {
 	readonly height: string
 	readonly elem: HTMLDivElement
 	readonly shape: Shape
+	readonly container: Node
 
 	constructor({
 		magnification = 2.25,
@@ -39,6 +40,7 @@ export class Loupe {
 		this.magnification = magnification
 		this.width = typeof width === "number" ? px(width) : width
 		this.height = typeof height === "number" ? px(height) : height
+		this.container = container
 		this.shape = shape
 
 		this.elem = document.createElement("div")
@@ -49,7 +51,11 @@ export class Loupe {
 		if (style !== undefined) {
 			Object.assign(this.elem.style, style)
 		}
-		container.appendChild(this.elem)
+		this.container.appendChild(this.elem)
+	}
+
+	unmount(): void {
+		this.container.removeChild(this.elem)
 	}
 }
 

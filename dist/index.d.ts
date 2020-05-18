@@ -14,6 +14,8 @@ export declare class Loupe {
     readonly height: string;
     readonly elem: HTMLDivElement;
     readonly shape: Shape;
+    readonly container: Node;
     constructor({ magnification, width, height, container, additionalClassName, style, shape }?: LoupeOptions);
+    unmount(): void;
 }
 export declare const enableLoupe: (target: HTMLElement, imgUrl: string, loupe: Loupe) => () => void;

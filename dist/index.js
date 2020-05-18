@@ -14,6 +14,7 @@ var Loupe = /** @class */ (function () {
         this.magnification = magnification;
         this.width = typeof width === "number" ? px(width) : width;
         this.height = typeof height === "number" ? px(height) : height;
+        this.container = container;
         this.shape = shape;
         this.elem = document.createElement("div");
         this.elem.classList.add("__loupe");
@@ -23,8 +24,11 @@ var Loupe = /** @class */ (function () {
         if (style !== undefined) {
             Object.assign(this.elem.style, style);
         }
-        container.appendChild(this.elem);
+        this.container.appendChild(this.elem);
     }
+    Loupe.prototype.unmount = function () {
+        this.container.removeChild(this.elem);
+    };
     return Loupe;
 }());
 exports.Loupe = Loupe;
