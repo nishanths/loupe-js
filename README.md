@@ -2,15 +2,24 @@
 
 An image magnifier for JavaScript. Based on this [Codepen](https://codepen.io/pixelacorn/pen/eNObea).
 
-Features
+__Demo__: https://nishanths.github.io/loupe-js
+
+* [Features](#features)
+* [Install](#install)
+* [Examples](#examples)
+  * [Basic example](#basic-example)
+  * [React example](#react-example)
+* [Documentation](#documentation)
+  * [enableLoupe](#enableloupe)
+  * [Loupe](#loupe)
+* [Recommendations](#recommendations)
+
+## Features
 
 * supports mouse and touch events
 * customize magnification level, loupe size, loupe shape, and use custom CSS
 * TypeScript type definitions
 * works with React (see examples)
-* proper cleanup of event listeners and DOM elements
-
-[__Demo__](https://nishanths.github.io/loupe-js/)
 
 <a href="https://nishanths.github.io/loupe-js">
 	<img src="https://i.ibb.co/hRkZ1X2/Screen-Shot-2020-05-17-at-6-46-48-PM.png" alt="Screen-Shot-2020-05-17-at-6-46-48-PM" border="0">
@@ -31,7 +40,11 @@ yarn add loupe-js
 If you want to evaluate the package quickly without using a package manager
 use `dist/index.window.js`, which has the module's exports in `window.loupe`.
 
-## Example
+Remember to include the `style.css` file.
+
+## Examples
+
+### Basic example
 
 Import "loupe-js" and the related CSS file.
 
@@ -54,7 +67,7 @@ const loupe = new Loupe(options) // or just `new Loupe()` to use default options
 enableLoupe(img, img.src, loupe)
 ```
 
-## React Example
+### React example
 
 For a function component that uses hooks:
 
