@@ -12,7 +12,7 @@
     "src"
   ],
   "name": "loupe-js",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "A customizable, no-dependency image magnifier with touch events support written in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
