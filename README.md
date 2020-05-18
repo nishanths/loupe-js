@@ -10,8 +10,8 @@ __Demo__: https://nishanths.github.io/loupe-js
   * [Basic example](#basic-example)
   * [React example](#react-example)
 * [Documentation](#documentation)
-  * [enableLoupe](#enableloupe)
   * [Loupe](#loupe)
+  * [enableLoupe](#enableloupe)
 * [Recommendations](#recommendations)
 
 ## Features
@@ -104,27 +104,6 @@ For a class component put the relevant code in `componentDidMount()` and `compon
 
 ## Documentation
 
-### enableLoupe
-
-`enableLoupe()` adds the specified `Loupe` object to the `target` element.
-
-```typescript
-const disable = enableLoupe(target, imgUrl, loupe)
-```
-
-It returns a cleanup function that can be used to disable the loupe
-on the target element at a later time.
-
-The target element can be, for instance, an `<img>` element or a `<div>` element with a
-background-image. The `imgUrl` is the URL to the image. For example, it is the src property
-for an `<img>` element, or background-image CSS property for a `<div>` element.
-
-The type definition is:
-
-```typescript
-(target: HTMLElement | SVGElement, imgUrl: string, loupe: Loupe) => (() => void)
-```
-
 ### Loupe
 
 The `Loupe` constructor constructs a loupe object.
@@ -171,6 +150,27 @@ in the DOM. The loupe object should not be used after.
 
 ```ts
 loupe.unmount() // loupe element will no longer exist in the DOM
+```
+
+### enableLoupe
+
+`enableLoupe()` adds the specified `Loupe` object to the `target` element.
+
+```typescript
+const disable = enableLoupe(target, imgUrl, loupe)
+```
+
+It returns a cleanup function that can be used to disable the loupe
+on the target element at a later time.
+
+The target element can be, for instance, an `<img>` element or a `<div>` element with a
+background-image. The `imgUrl` is the URL to the image. For example, it is the src property
+for an `<img>` element, or background-image CSS property for a `<div>` element.
+
+The type definition is:
+
+```typescript
+(target: HTMLElement | SVGElement, imgUrl: string, loupe: Loupe) => (() => void)
 ```
 
 ## Recommendations
