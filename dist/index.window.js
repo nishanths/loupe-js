@@ -139,21 +139,21 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
     };
     var stopMouseMove = function () {
         if (moveHandlers.docMouseMoveHandler !== undefined) {
-            Object.assign(loupe.elem.style, { display: "none" });
+            Object.assign(loupe.elem.style, { display: "none", visibility: "hidden" });
             doc.removeEventListener("mousemove", moveHandlers.docMouseMoveHandler);
             moveHandlers.docMouseMoveHandler = undefined;
         }
     };
     var stopTouchMove = function () {
         if (moveHandlers.docTouchMoveHandler !== undefined) {
-            Object.assign(loupe.elem.style, { display: "none" });
+            Object.assign(loupe.elem.style, { display: "none", visibility: "hidden" });
             doc.removeEventListener("touchmove", moveHandlers.docTouchMoveHandler);
             moveHandlers.docTouchMoveHandler = undefined;
         }
     };
     var handler = function () {
         Object.assign(target.style, { cursor: "none" });
-        Object.assign(loupe.elem.style, { display: "block" });
+        Object.assign(loupe.elem.style, { display: "block", visibility: "hidden" });
         var targetRect = target.getBoundingClientRect();
         var width = targetRect.width;
         var height = targetRect.height;
@@ -181,6 +181,7 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 stopMouseMove();
                 return;
             }
+            Object.assign(loupe.elem.style, { display: "block", visibility: "visible" });
             var bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset);
             var bgPosY = -((e.pageY - top) * loupe.magnification - loupeOffset);
             Object.assign(loupe.elem.style, {
@@ -201,6 +202,7 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
                 stopTouchMove();
                 return;
             }
+            Object.assign(loupe.elem.style, { display: "block", visibility: "visible" });
             var bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset);
             var bgPosY = -((t.pageY - top) * loupe.magnification - loupeOffset);
             Object.assign(loupe.elem.style, {

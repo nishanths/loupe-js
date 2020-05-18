@@ -79,14 +79,14 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 
 	const stopMouseMove = () => {
 		if (moveHandlers.docMouseMoveHandler !== undefined) {
-			Object.assign(loupe.elem.style, { display: "none" })
+			Object.assign(loupe.elem.style, { display: "none", visibility: "hidden" })
 			doc.removeEventListener("mousemove", moveHandlers.docMouseMoveHandler)
 			moveHandlers.docMouseMoveHandler = undefined
 		}
 	}
 	const stopTouchMove = () => {
 		if (moveHandlers.docTouchMoveHandler !== undefined) {
-			Object.assign(loupe.elem.style, { display: "none" })
+			Object.assign(loupe.elem.style, { display: "none", visibility: "hidden" })
 			doc.removeEventListener("touchmove", moveHandlers.docTouchMoveHandler)
 			moveHandlers.docTouchMoveHandler = undefined
 		}
@@ -94,7 +94,7 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 
 	const handler = function() {
 		Object.assign(target.style, { cursor: "none" })
-		Object.assign(loupe.elem.style, { display: "block" })
+		Object.assign(loupe.elem.style, { display: "block", visibility: "hidden" })
 
 		const targetRect = target.getBoundingClientRect()
 		const width = targetRect.width
@@ -126,6 +126,7 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 				stopMouseMove()
 				return
 			}
+			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
 			const bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset)
 			const bgPosY = -((e.pageY - top) * loupe.magnification - loupeOffset)
 			Object.assign(loupe.elem.style, {
@@ -146,6 +147,7 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 				stopTouchMove()
 				return
 			}
+			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
 			const bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset)
 			const bgPosY = -((t.pageY - top) * loupe.magnification - loupeOffset)
 			Object.assign(loupe.elem.style, {
