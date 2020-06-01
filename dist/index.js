@@ -1,5 +1,6 @@
 "use strict";
-// Original jQuery implementation: https://codepen.io/pixelacorn/pen/eNObea
+// Original jQuery implementation (without touch event support, customizable shape
+// and styles): https://codepen.io/pixelacorn/pen/eNObea
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enableLoupe = exports.Loupe = void 0;
 var px = function (v) { return v + "px"; };
@@ -133,8 +134,8 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
         target.removeEventListener("touchstart", handler);
     };
 };
-var disableTouchScroll = function (target) {
-    var old = target.style.touchAction;
-    Object.assign(target.style, { touchAction: "none" }); // // https://stackoverflow.com/a/43275544/3309046
-    return function () { Object.assign(target.style, { touchAction: old }); };
+var disableTouchScroll = function (elem) {
+    var old = elem.style.touchAction;
+    Object.assign(elem.style, { touchAction: "none" }); // https://stackoverflow.com/a/43275544/3309046
+    return function () { Object.assign(elem.style, { touchAction: old }); };
 };
