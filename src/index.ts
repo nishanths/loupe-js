@@ -69,6 +69,8 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 	const doc = target.ownerDocument
 	const wnd = doc.defaultView
 
+	const resetTouchScroll = disableTouchScroll(target)
+
 	const moveHandlers: {
 		docMouseMoveHandler: ((e: MouseEvent) => void) | undefined
 		docTouchMoveHandler: ((e: TouchEvent) => void) | undefined
@@ -164,9 +166,16 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 	target.addEventListener("touchstart", handler);
 
 	return () => {
+		resetTouchScroll()
 		stopMouseMove()
 		stopTouchMove()
 		target.removeEventListener("mouseover", handler)
 		target.removeEventListener("touchstart", handler)
 	}
+}
+
+const disableTouchScroll = (target: HTMLElement | SVGElement): (() => void) => {
+	const old = target.style.touchAction
+	Object.assign(target.style, { touchAction: "none" }) // // https://stackoverflow.com/a/43275544/3309046
+	return () => { Object.assign(target.style, { touchAction: old }) }
 }

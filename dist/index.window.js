@@ -133,6 +133,7 @@ exports.Loupe = Loupe;
 exports.enableLoupe = function (target, imgUrl, loupe) {
     var doc = target.ownerDocument;
     var wnd = doc.defaultView;
+    var resetTouchScroll = disableTouchScroll(target);
     var moveHandlers = {
         docMouseMoveHandler: undefined,
         docTouchMoveHandler: undefined,
@@ -217,11 +218,17 @@ exports.enableLoupe = function (target, imgUrl, loupe) {
     target.addEventListener("mouseover", handler);
     target.addEventListener("touchstart", handler);
     return function () {
+        resetTouchScroll();
         stopMouseMove();
         stopTouchMove();
         target.removeEventListener("mouseover", handler);
         target.removeEventListener("touchstart", handler);
     };
+};
+var disableTouchScroll = function (target) {
+    var old = target.style.touchAction;
+    Object.assign(target.style, { touchAction: "none" }); // // https://stackoverflow.com/a/43275544/3309046
+    return function () { Object.assign(target.style, { touchAction: old }); };
 };
 
 
