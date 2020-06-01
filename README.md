@@ -99,8 +99,21 @@ export const MyPicture: React.SFC<{ imgUrl: string }> = ({ imgUrl }) => {
 }
 ```
 
-For a class component put the relevant code in `componentDidMount()` and `componentWillUnmount()` instead.
+### Using script tag
 
+Import the specific script `index.window.js` that makes the package's exports available on the `window` object:
+
+```html
+<link rel="stylesheet" href="dist/style.css">
+<script src="dist/index.window.js"></script>
+```
+
+Then use it in your JavaScript:
+
+```js
+const { Loupe, enableLoupe } = window.loupe
+// ... use new Loupe() and enableLoupe() ...
+```
 
 ## Documentation
 
