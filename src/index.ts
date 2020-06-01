@@ -1,4 +1,5 @@
-// Original jQuery implementation: https://codepen.io/pixelacorn/pen/eNObea
+// Original jQuery implementation (without touch event support, customizable shape
+// and styles): https://codepen.io/pixelacorn/pen/eNObea
 
 const px = (v: number): string => v + "px"
 
@@ -162,8 +163,8 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 		doc.addEventListener("touchmove", moveHandlers.docTouchMoveHandler)
 	}
 
-	target.addEventListener("mouseover", handler);
-	target.addEventListener("touchstart", handler);
+	target.addEventListener("mouseover", handler)
+	target.addEventListener("touchstart", handler)
 
 	return () => {
 		resetTouchScroll()
@@ -176,6 +177,6 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 
 const disableTouchScroll = (target: HTMLElement | SVGElement): (() => void) => {
 	const old = target.style.touchAction
-	Object.assign(target.style, { touchAction: "none" }) // // https://stackoverflow.com/a/43275544/3309046
+	Object.assign(target.style, { touchAction: "none" }) // https://stackoverflow.com/a/43275544/3309046
 	return () => { Object.assign(target.style, { touchAction: old }) }
 }
