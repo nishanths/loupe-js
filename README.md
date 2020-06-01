@@ -9,6 +9,7 @@ __Demo__: https://nishanths.github.io/loupe-js
 * [Examples](#examples)
   * [Basic example](#basic-example)
   * [React example](#react-example)
+  * [Using script tag](#using-script-tag)
 * [Documentation](#documentation)
   * [Loupe](#loupe)
   * [enableLoupe](#enableloupe)
