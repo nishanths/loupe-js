@@ -175,8 +175,8 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 	}
 }
 
-const disableTouchScroll = (target: HTMLElement | SVGElement): (() => void) => {
-	const old = target.style.touchAction
-	Object.assign(target.style, { touchAction: "none" }) // https://stackoverflow.com/a/43275544/3309046
-	return () => { Object.assign(target.style, { touchAction: old }) }
+const disableTouchScroll = (elem: HTMLElement | SVGElement): (() => void) => {
+	const old = elem.style.touchAction
+	Object.assign(elem.style, { touchAction: "none" }) // https://stackoverflow.com/a/43275544/3309046
+	return () => { Object.assign(elem.style, { touchAction: old }) }
 }
