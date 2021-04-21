@@ -99,9 +99,16 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 		Object.assign(target.style, { cursor: "none" })
 		Object.assign(loupe.elem.style, { display: "block", visibility: "hidden" })
 
+		const exitDistance = 5
+
+		const zoomingImg = document.createElement('img');
+        zoomingImg.src = imgUrl;
+
 		const targetRect = target.getBoundingClientRect()
-		const width = targetRect.width
-		const height = targetRect.height
+
+		const width = zoomingImg.width
+		const height = zoomingImg.height
+
 		// left and top copied from jQuery $(offset)
 		// https://j11y.io/jquery/#v=1.11.2&fn=jQuery.fn.offset
 		const left = targetRect.left + (wnd?.pageXOffset || doc.documentElement.scrollLeft) - (doc.documentElement.clientLeft || 0)
@@ -122,16 +129,25 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 		const loupeOffset = loupe.elem.getBoundingClientRect().width / 2;
 
 		moveHandlers.docMouseMoveHandler = function(e: MouseEvent) {
-			if (e.pageX < left - loupeOffset / 6 ||
-				e.pageX > right + loupeOffset / 6 ||
-				e.pageY < top - loupeOffset / 6 ||
-				e.pageY > bottom + loupeOffset / 6) {
+			if (e.pageX < left - exitDistance ||
+				e.pageX > right + exitDistance ||
+				e.pageY < top - exitDistance ||
+				e.pageY > bottom + exitDistance) {
 				stopMouseMove()
 				return
 			}
 			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
-			const bgPosX = -((e.pageX - left) * loupe.magnification - loupeOffset)
-			const bgPosY = -((e.pageY - top) * loupe.magnification - loupeOffset)
+			
+			const positionX = -e.pageX + left;
+            const percentX = positionX * 100 / targetRect.width;
+            const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
+
+			const positionY = -e.pageY + top;
+            const percentY = positionY * 100 / targetRect.height;
+            const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
+
+			const bgPosX = zoomingPercentX
+			const bgPosY = zoomingPercentY
 			Object.assign(loupe.elem.style, {
 				left: px(e.pageX - loupeOffset),
 				top: px(e.pageY - loupeOffset),
@@ -143,16 +159,26 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 			if (!t) {
 				return
 			}
-			if (t.pageX < left - loupeOffset / 6 ||
-				t.pageX > right + loupeOffset / 6 ||
-				t.pageY < top - loupeOffset / 6 ||
-				t.pageY > bottom + loupeOffset / 6) {
+
+			if (t.pageX < left - exitDistance  ||
+				t.pageX > right + exitDistance ||
+				t.pageY < top - exitDistance ||
+				t.pageY > bottom + exitDistance) {
 				stopTouchMove()
 				return
 			}
 			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
-			const bgPosX = -((t.pageX - left) * loupe.magnification - loupeOffset)
-			const bgPosY = -((t.pageY - top) * loupe.magnification - loupeOffset)
+
+			const positionX = -t.pageX + left
+            const percentX = positionX * 100 / targetRect.width
+            const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
+
+			const positionY = -t.pageY + top
+            const percentY = positionY * 100 / targetRect.height
+            const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
+
+			const bgPosX = zoomingPercentX
+			const bgPosY = zoomingPercentY
 			Object.assign(loupe.elem.style, {
 				left: px(t.pageX - loupeOffset),
 				top: px(t.pageY - loupeOffset),
