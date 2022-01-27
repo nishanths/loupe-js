@@ -102,7 +102,7 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 		const exitDistance = 5
 
 		const zoomingImg = document.createElement('img');
-        zoomingImg.src = imgUrl;
+		zoomingImg.src = imgUrl;
 
 		const targetRect = target.getBoundingClientRect()
 
@@ -137,14 +137,14 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 				return
 			}
 			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
-			
+
 			const positionX = -e.pageX + left;
-            const percentX = positionX * 100 / targetRect.width;
-            const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
+			const percentX = positionX * 100 / targetRect.width;
+			const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
 
 			const positionY = -e.pageY + top;
-            const percentY = positionY * 100 / targetRect.height;
-            const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
+			const percentY = positionY * 100 / targetRect.height;
+			const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
 
 			const bgPosX = zoomingPercentX
 			const bgPosY = zoomingPercentY
@@ -160,7 +160,7 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 				return
 			}
 
-			if (t.pageX < left - exitDistance  ||
+			if (t.pageX < left - exitDistance ||
 				t.pageX > right + exitDistance ||
 				t.pageY < top - exitDistance ||
 				t.pageY > bottom + exitDistance) {
@@ -170,12 +170,12 @@ export const enableLoupe = (target: HTMLElement | SVGElement, imgUrl: string, lo
 			Object.assign(loupe.elem.style, { display: "block", visibility: "visible" })
 
 			const positionX = -t.pageX + left
-            const percentX = positionX * 100 / targetRect.width
-            const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
+			const percentX = positionX * 100 / targetRect.width
+			const zoomingPercentX = width * loupe.magnification * percentX / 100 + loupeOffset
 
 			const positionY = -t.pageY + top
-            const percentY = positionY * 100 / targetRect.height
-            const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
+			const percentY = positionY * 100 / targetRect.height
+			const zoomingPercentY = height * loupe.magnification * percentY / 100 + loupeOffset
 
 			const bgPosX = zoomingPercentX
 			const bgPosY = zoomingPercentY
